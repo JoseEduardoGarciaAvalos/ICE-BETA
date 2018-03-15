@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <c2project>
     <name>Audio analyser</name>
+<<<<<<< HEAD
     <description>Gran juego</description>
+=======
+    <description>Súper juego</description>
+>>>>>>> origin/master
     <version>1.0</version>
     <author></author>
     <author-email></author-email>
