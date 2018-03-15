@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Event sheet 1</name>
+    <events>
+        <variable constant="0" name="FrequencyBinCount" sid="9" static="0" type="number">0</variable>
+        <comment>Start the music playing on startup, and follow the other events.</comment>
+        <event-block sid="10">
+            <conditions>
+                <condition id="-2" name="On start of layout" sid="11" type="System" />
+            </conditions>
+            <actions>
+                <action id="-9" name="Destroy" sid="13" type="FrequencyBin" />
+                <action id="10" name="Get media sources" sid="1480418680714391" type="UserMedia" />
+            </actions>
+            <sub-events>
+                <comment>Warn the user if advanced audio or user media is not supported, which means the analyser or input won&apos;t work.</comment>
+                <event-block any="1" sid="14">
+                    <conditions>
+                        <condition id="2" inverted="1" name="Advanced audio supported" sid="15" type="Audio" />
+                        <condition id="2" inverted="1" name="Supports user media" sid="57" type="UserMedia" />
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Set text" sid="16" type="Text">
+                            <param id="0" name="Text">&quot;Advanced audio or mic input not supported! Try Google Chrome&quot;</param>
+                        </action>
+                        <action id="2" name="Set font face" sid="17" type="Text">
+                            <param id="0" name="Font face">&quot;Arial&quot;</param>
+                            <param id="1" name="Style">1</param>
+                        </action>
+                        <action id="4" name="Set font color" sid="18" type="Text">
+                            <param id="0" name="Color">rgb(255, 0, 0)</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Otherwise the analyser is supported.</comment>
+                <event-block sid="19">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="20" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="20" name="Add analyser effect" sid="26" type="Audio">
+                            <param id="0" name="Tag">&quot;mic&quot;</param>
+                            <param id="1" name="FFT size">1024</param>
+                            <param id="2" name="Smoothing">0.2</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <comment>Once the analyser is added, store the bin count and display the value. We also add a mute effect to prevent the mic output coming through the speakers.</comment>
+                        <event-block sid="27">
+                            <conditions />
+                            <actions>
+                                <action id="32" name="Add mute effect" sid="61" type="Audio">
+                                    <param id="0" name="Tag">&quot;mic&quot;</param>
+                                </action>
+                                <action id="-9" name="Set value" sid="28" type="System">
+                                    <param id="0" name="Variable">FrequencyBinCount</param>
+                                    <param id="1" name="Value">Audio.AnalyserFreqBinCount(&quot;mic&quot;, 0)</param>
+                                </action>
+                                <action id="0" name="Set text" sid="29" type="Text">
+                                    <param id="0" name="Text">FrequencyBinCount &amp; &quot; frequency bins&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <comment>Then create a tiled background for each bar in the frequency graph.</comment>
+                        <event-block sid="30">
+                            <conditions>
+                                <condition id="-12" name="Repeat" sid="31" type="System">
+                                    <param id="0" name="Count">FrequencyBinCount</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Create object" sid="32" type="System">
+                                    <param id="0" name="Object to create">FrequencyBin</param>
+                                    <param id="1" name="Layer">0</param>
+                                    <param id="2" name="X">loopindex * WindowWidth / FrequencyBinCount</param>
+                                    <param id="3" name="Y">0</param>
+                                </action>
+                                <action id="-10" name="Set value" sid="33" type="FrequencyBin">
+                                    <param id="0" name="Instance variable">binNumber</param>
+                                    <param id="1" name="Value">loopindex</param>
+                                </action>
+                                <action id="-7" name="Set size" sid="34" type="FrequencyBin">
+                                    <param id="0" name="Width">WindowWidth / FrequencyBinCount</param>
+                                    <param id="1" name="Height">200</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <comment>When the list of media sources becomes available, fill out the AudioSourcesList. This allows a user with more than one microphone to pick which to use from the dropdown.</comment>
+        <event-block sid="848247611698732">
+            <conditions>
+                <condition id="12" name="On retrieved media sources" sid="3518107948524816" type="UserMedia" />
+            </conditions>
+            <actions>
+                <action id="2" name="Set visible" sid="3004294717624425" type="AudioSourcesList">
+                    <param id="0" name="Visibility">1</param>
+                </action>
+                <action id="11" name="Clear" sid="7135245716536863" type="AudioSourcesList" />
+            </actions>
+            <sub-events>
+                <event-block sid="7199712736634351">
+                    <conditions>
+                        <condition id="-12" name="Repeat" sid="1242114094774316" type="System">
+                            <param id="0" name="Count">UserMedia.AudioSourceCount</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="7" name="Add item" sid="9482248613248234" type="AudioSourcesList">
+                            <param id="0" name="Text">&quot;Microphone &quot; &amp; loopindex &amp; &quot; (&quot; &amp; UserMedia.AudioSourceLabelAt(loopindex) &amp; &quot;)&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <comment>Every tick, update each frequency bin&apos;s position depending on the data from the analyser.</comment>
+        <event-block sid="35">
+            <conditions>
+                <condition id="-11" name="For Each" sid="36" type="System">
+                    <param id="0" name="Object">FrequencyBin</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-2" name="Set Y" sid="37" type="FrequencyBin">
+                    <param id="0" name="Y">400 - Audio.AnalyserFreqBinAt(&quot;mic&quot;, 0, FrequencyBin.binNumber) * 1.5</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Also update the peak and RMS meters. Only update the readings every 100ms to make them easier to read.</comment>
+        <event-block sid="43">
+            <conditions>
+                <condition id="-1" name="Every tick" sid="44" type="System" />
+            </conditions>
+            <actions>
+                <action id="-6" name="Set height" sid="45" type="PeakMeter">
+                    <param id="0" name="Height">200 + Audio.AnalyserPeakLevel(&quot;mic&quot;, 0) * 4</param>
+                </action>
+                <action id="-6" name="Set height" sid="49" type="RMSMeter">
+                    <param id="0" name="Height">200 + Audio.AnalyserRMSLevel(&quot;mic&quot;, 0) * 4</param>
+                </action>
+                <action id="-7" name="Set size" sid="54" type="Sprite">
+                    <param id="0" name="Width">150 + Audio.AnalyserRMSLevel(&quot;mic&quot;, 0) * 2</param>
+                    <param id="1" name="Height">150 + Audio.AnalyserRMSLevel(&quot;mic&quot;, 0) * 2</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="46">
+            <conditions>
+                <condition id="-6" name="Every X seconds" sid="47" type="System">
+                    <param id="0" name="Interval (seconds)">0.1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Set text" sid="48" type="PeakReading">
+                    <param id="0" name="Text">&quot;Peak:&quot; &amp; newline &amp; round(Audio.AnalyserPeakLevel(&quot;mic&quot;, 0)) &amp; &quot; dB&quot;</param>
+                </action>
+                <action id="0" name="Set text" sid="51" type="RMSReading">
+                    <param id="0" name="Text">&quot;RMS:&quot; &amp; newline &amp; round(Audio.AnalyserRMSLevel(&quot;mic&quot;, 0)) &amp; &quot; dB&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>When the user clicks the button, request microphone input. If the user has selected a specific source from the dropdown, use that.</comment>
+        <event-block sid="58">
+            <conditions>
+                <condition id="0" name="On clicked" sid="59" type="Button" />
+            </conditions>
+            <actions>
+                <action id="3" name="Request microphone" sid="60" type="UserMedia">
+                    <param id="0" name="Tag">&quot;mic&quot;</param>
+                    <param id="1" name="Source">AudioSourcesList.SelectedIndex</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>

@@ -1,3 +1,15 @@
+## Construct 2 ##
+
+
+#Construct 2 Interfaz de Usuario
+
+*.uistate.xml
+
+#Archivos temporales
+
+*.capx.backup*
+*.capx.autosave*
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
