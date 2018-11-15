@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2project>
+    <name>Historietas</name>
+    <description></description>
+    <version>1.0.0.0</version>
+    <author></author>
+    <author-email></author-email>
+    <author-website>http://</author-website>
+    <app-id>com.mycompany.myapp</app-id>
+    <unique-id>374pzt3d20ubt</unique-id>
+    <saved-with-version>24400</saved-with-version>
+    <used-plugins>
+        <plugin author="Scirra" id="AJAX" version="1">AJAX</plugin>
+        <plugin author="Scirra" id="Browser" version="1">Browser</plugin>
+        <plugin author="Scirra" id="Function" version="1">Function</plugin>
+        <plugin author="PlayLive" id="HTML_iFrame" version="2">HTML | iFrame</plugin>
+        <plugin author="Scirra" id="Keyboard" version="1">Keyboard</plugin>
+        <plugin author="Scirra" id="Mouse" version="1">Mouse</plugin>
+        <plugin author="Rex.Rainbow" id="Rex_CSV" version="1">CSV</plugin>
+        <plugin author="Scirra" id="Sprite" version="1">Sprite</plugin>
+        <plugin author="Scirra" id="TiledBg" version="1">Tiled Background</plugin>
+    </used-plugins>
+    <used-behaviors />
+    <used-effects />
+    <configurations>
+        <configuration exporter-descname="HTML5" exporter-id="html5" name="HTML5" />
+    </configurations>
+    <window-size>
+        <width>854</width>
+        <height>480</height>
+    </window-size>
+    <pixel-rounding>0</pixel-rounding>
+    <preview-effects>1</preview-effects>
+    <use-loader-layout>0</use-loader-layout>
+    <configuration-settings>
+        <prop name="Clear background">Yes</prop>
+        <prop name="Downscaling">Medium quality</prop>
+        <prop name="Enable WebGL">On</prop>
+        <prop name="Fullscreen in browser">Letterbox scale</prop>
+        <prop name="Fullscreen scaling">High quality</prop>
+        <prop name="Loader style">Construct 2 splash</prop>
+        <prop name="Orientations">Any</prop>
+        <prop name="Pause on unfocus">No</prop>
+        <prop name="Physics engine">Box2D asm.js</prop>
+        <prop name="Preload sounds">Yes</prop>
+        <prop name="Preview browser">Chrome</prop>
+        <prop name="Sampling">Linear</prop>
+        <prop name="Use high-DPI display">Yes</prop>
+    </configuration-settings>
+    <object-folder>
+        <object-type name="IFrame" sid="846724845578263">
+            <plugin id="HTML_iFrame" />
+        </object-type>
+        <object-type name="AJAX" sid="261674926819867">
+            <plugin id="AJAX" />
+        </object-type>
+        <object-type global="1" name="CSV" sid="398734494457888">
+            <plugin id="Rex_CSV" />
+        </object-type>
+        <object-type name="Navegador" sid="965699290583362">
+            <plugin id="Browser" />
+        </object-type>
+        <object-type name="Funcion" sid="688598235607544">
+            <plugin id="Function" />
+        </object-type>
+        <object-type name="Teclado" sid="823541207705870">
+            <plugin id="Keyboard" />
+        </object-type>
+        <object-type name="Sprite" sid="522814265309764">
+            <plugin id="Sprite" />
+            <instance-variables>
+                <instance-variable name="id" sid="615468675819886" type="number" />
+            </instance-variables>
+            <animation-folder>
+                <animation framecount="4" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="254446185557716" speed="0">
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.505155" original-source="H:\OneDrive\Tesis\APLICACIÓN\PROCESO\proyecto GUI\- TEMA CONSTRUCCIÓN\boton no.png">
+                        <collision-poly>
+                            <point x="0.103774" y="0.226804" />
+                            <point x="0.5" y="0" />
+                            <point x="0.976415" y="0.0515464" />
+                            <point x="0.882075" y="0.742268" />
+                            <point x="0.5" y="1" />
+                            <point x="0.0235849" y="0.948454" />
+                        </collision-poly>
+                    </frame>
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.505155" original-source="H:\OneDrive\Tesis\APLICACIÓN\PROCESO\proyecto GUI\- TEMA CONSTRUCCIÓN\boton anterior.png" />
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.505155" original-source="H:\OneDrive\Tesis\APLICACIÓN\PROCESO\proyecto GUI\- TEMA CONSTRUCCIÓN\boton si.png">
+                        <collision-poly>
+                            <point x="0.103774" y="0.226804" />
+                            <point x="0.5" y="0" />
+                            <point x="0.976415" y="0.0515464" />
+                            <point x="0.882075" y="0.742268" />
+                            <point x="0.5" y="1" />
+                            <point x="0.0235849" y="0.948454" />
+                        </collision-poly>
+                    </frame>
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.505155" original-source="H:\OneDrive\Tesis\APLICACIÓN\PROCESO\proyecto GUI\- TEMA CONSTRUCCIÓN\boton no.png" />
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="Mouse" sid="399124330180656">
+            <plugin id="Mouse" />
+        </object-type>
+        <object-type name="Fondo" sid="401200032869459">
+            <plugin id="TiledBg" />
+            <texture original-source="H:\OneDrive\Tesis\APLICACIÓN\PROCESO\proyecto GUI\- TEMA CONSTRUCCIÓN\muro de ladrillos.png" />
+        </object-type>
+    </object-folder>
+    <families />
+    <layout-folder>
+        <layout>Lienzo.xml</layout>
+    </layout-folder>
+    <event-folder>
+        <event-sheet>Principal.xml</event-sheet>
+    </event-folder>
+    <global-instances>
+        <global-instance type="AJAX" uid="1" />
+        <global-instance type="Navegador" uid="4" />
+        <global-instance type="Funcion" uid="6" />
+        <global-instance type="Teclado" uid="3" />
+        <global-instance type="Mouse" uid="9" />
+    </global-instances>
+    <sounds-folder />
+    <music-folder />
+    <files-folder>
+        <file-folder name="Icons">
+            <file name="icon-16.png" />
+            <file name="icon-32.png" />
+            <file name="icon-114.png" />
+            <file name="icon-128.png" />
+            <file name="icon-256.png" />
+            <file name="loading-logo.png" />
+        </file-folder>
+        <file-folder name="historieta 3">
+            <file name="h3-1a.png" />
+            <file name="h3-1b.png" />
+            <file name="h3-2b.png" />
+            <file name="h3-2c.png" />
+            <file name="h3-4b.png" />
+            <file name="h3-5a.png" />
+            <file name="h3-5b.png" />
+            <file name="h3-1c.gif" />
+            <file name="h3-2a.gif" />
+            <file name="h3-3a.gif" />
+            <file name="h3-3b.gif" />
+            <file name="h3-3c.gif" />
+            <file name="h3-4a.gif" />
+            <file name="h3-4c.gif" />
+            <file name="h3-5c.gif" />
+            <file name="h3-6a.gif" />
+            <file name="h3-6b.gif" />
+            <file name="h3-7a.gif" />
+            <file name="h3-7b.gif" />
+        </file-folder>
+        <file-folder name="historieta 4">
+            <file name="h4-1a.gif" />
+            <file name="h4-1b.png" />
+            <file name="h4-2a.gif" />
+            <file name="h4-2b.gif" />
+            <file name="h4-2c.png" />
+            <file name="h4-3a.gif" />
+            <file name="h4-3b.gif" />
+            <file name="h4-3c.gif" />
+            <file name="h4-4a.gif" />
+            <file name="h4-4b.gif" />
+            <file name="h4-4c.gif" />
+            <file name="h4-5a.gif" />
+            <file name="h4-5b.png" />
+            <file name="h4-6a.gif" />
+            <file name="h4-6b.gif" />
+            <file name="h4-7a.png" />
+            <file name="h4-7b.gif" />
+            <file name="h4-7c.gif" />
+            <file name="h4-8a.png" />
+            <file name="h4-8b.gif" />
+            <file name="h4-8c.gif" />
+            <file name="h4-9a.gif" />
+            <file name="h4-9b.gif" />
+            <file name="h4-9c.gif" />
+            <file name="h4-10a.gif" />
+            <file name="h4-10b.gif" />
+        </file-folder>
+        <file-folder name="historieta 5">
+            <file name="h5e1.png" />
+            <file name="h5e2.png" />
+            <file name="h5e3.png" />
+            <file name="h5e4.png" />
+            <file name="h5e5.png" />
+            <file name="h5e6.png" />
+            <file name="h5e7.png" />
+            <file name="h5e8.png" />
+            <file name="h5e9.png" />
+            <file name="h5e10.png" />
+            <file name="h5e11.png" />
+            <file name="h5e12.png" />
+            <file name="h5e13.png" />
+            <file name="h5e14.png" />
+            <file name="h5e15.png" />
+            <file name="h5e16.png" />
+            <file name="h5e17.gif" />
+            <file name="h5e18.png" />
+            <file name="h5e19.png" />
+            <file name="h5e20.gif" />
+            <file name="h5e21.png" />
+            <file name="h5e22.png" />
+            <file name="h5e23.png" />
+        </file-folder>
+        <file-folder name="historieta 6">
+            <file name="h6e1.png" />
+            <file name="h6e2.png" />
+            <file name="h6e3.png" />
+            <file name="h6e4.png" />
+            <file name="h6e5.png" />
+            <file name="h6e6.png" />
+            <file name="h6e7.png" />
+            <file name="h6e8.png" />
+            <file name="h6e9.png" />
+            <file name="h6e10.png" />
+            <file name="h6e11.png" />
+            <file name="h6e12.png" />
+            <file name="h6e13.png" />
+            <file name="h6e14.png" />
+            <file name="h6e15.gif" />
+            <file name="h6e16.png" />
+            <file name="h6e17.png" />
+        </file-folder>
+        <file-folder name="historieta 1">
+            <file name="h1e1.png" />
+            <file name="h1e2.png" />
+            <file name="h1e3.gif" />
+            <file name="h1e4.png" />
+            <file name="h1e5.gif" />
+            <file name="h1e6.png" />
+            <file name="h1e7.png" />
+            <file name="h1e8.png" />
+            <file name="h1e9.png" />
+            <file name="h1e10.gif" />
+            <file name="h1e11.png" />
+            <file name="h1e12.png" />
+            <file name="h1e13.png" />
+            <file name="h1e14.png" />
+            <file name="h1e15.gif" />
+            <file name="h1e16.png" />
+        </file-folder>
+        <file-folder name="historieta 2">
+            <file name="h2e1.png" />
+            <file name="h2e2.png" />
+            <file name="h2e3.png" />
+            <file name="h2e4.png" />
+            <file name="h2e5.gif" />
+            <file name="h2e6.png" />
+            <file name="h2e7.png" />
+            <file name="h2e8.png" />
+            <file name="h2e9.png" />
+            <file name="h2e10.png" />
+            <file name="h2e11.png" />
+            <file name="h2e12.png" />
+            <file name="h2e13.gif" />
+            <file name="h2e14.gif" />
+            <file name="h2e15.png" />
+            <file name="h2e16.png" />
+            <file name="h2e17.png" />
+            <file name="h2e18.gif" />
+            <file name="h2e19.png" />
+            <file name="h2e20.png" />
+            <file name="h2e21.png" />
+            <file name="h2e22.png" />
+            <file name="h2e23.png" />
+            <file name="h2e24.png" />
+            <file name="h2e25.png" />
+        </file-folder>
+        <file name="guiones.csv" />
+        <file name="estilo.css" />
+        <file name="plantilla.html" />
+        <file name="javaScript.js" />
+    </files-folder>
+</c2project>

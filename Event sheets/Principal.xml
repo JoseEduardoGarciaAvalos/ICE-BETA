@@ -1,0 +1,722 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Principal</name>
+    <events>
+        <variable comment="Puntero inicial" constant="0" name="inicio" sid="346952525847161" static="0" type="text">h1-1</variable>
+        <variable comment="Puntero del camino si" constant="0" name="si" sid="205920648321924" static="0" type="text"></variable>
+        <variable comment="Puntero del camino no" constant="0" name="no" sid="400352411046252" static="0" type="text"></variable>
+        <variable comment="Puntero donde está la pregunta" constant="0" name="pregunta" sid="344719635475563" static="0" type="text"></variable>
+        <variable comment="Plantilla de la página" constant="0" name="HTML" sid="512957197395579" static="0" type="text"></variable>
+        <comment>Al iniciar, se solicitará la plantilla</comment>
+        <event-block sid="293122716564800">
+            <conditions>
+                <condition id="-2" name="On start of layout" sid="521346424668606" type="System" />
+            </conditions>
+            <actions>
+                <action id="19" name="Include Javascript file" sid="965473619786470" type="IFrame">
+                    <param id="0" name="Javascript file">&quot;javaScript.js&quot;</param>
+                </action>
+                <action id="2" name="Import CSS file" sid="587347439752078" type="IFrame">
+                    <param id="0" name="CSS file">&quot;estilo.css&quot;</param>
+                </action>
+                <action id="4" name="Set CSS style" sid="545091905967940" type="IFrame">
+                    <param id="0" name="Property name">&quot;background&quot;</param>
+                    <param id="1" name="Value">&quot; &quot;</param>
+                </action>
+                <action id="1" name="Request project file" sid="168081343606568" type="AJAX">
+                    <param id="0" name="Tag">&quot;plantilla&quot;</param>
+                    <param id="1" name="File">plantilla.html</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Al cargar la plantilla, se guardará en la variable &quot;HTML&quot; y se solicitará los guiones</comment>
+        <event-block sid="988381119837667">
+            <conditions>
+                <condition id="0" name="On completed" sid="424074067283406" type="AJAX">
+                    <param id="0" name="Tag">&quot;plantilla&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" sid="936246644596762" type="System">
+                    <param id="0" name="Variable">HTML</param>
+                    <param id="1" name="Value">AJAX.LastData</param>
+                </action>
+                <action id="1" name="Request project file" sid="517870763015977" type="AJAX">
+                    <param id="0" name="Tag">&quot;guiones&quot;</param>
+                    <param id="1" name="File">guiones.csv</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Al cargar los guiones se guardaran en un CSV y se conseguirá la variable de consulta llamada &quot;h&quot; desde la URL</comment>
+        <event-block sid="216729113409808">
+            <conditions>
+                <condition id="0" name="On completed" sid="361398123480939" type="AJAX">
+                    <param id="0" name="Tag">&quot;guiones&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="1" name="Load table" sid="858056349858448" type="CSV">
+                    <param id="0" name="CSV string">AJAX.LastData</param>
+                </action>
+                <action id="0" name="Call function" sid="915350526929235" type="Funcion">
+                    <param id="0" name="Name">&quot;getCodigo&quot;</param>
+                    <param id="1" name="Parameter {n}"></param>
+                </action>
+                <action id="0" name="Call function" sid="191311178408221" type="Funcion">
+                    <param id="0" name="Name">&quot;verPagina&quot;</param>
+                    <param id="1" name="Parameter {n}">inicio{###}0</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Disparador que controla el flujo de la historieta</comment>
+        <event-block sid="230076212185126">
+            <conditions>
+                <condition id="3" name="On C2 Function" sid="416404184679522" type="IFrame" />
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="439911006881933">
+                    <conditions>
+                        <condition id="4" name="Compare C2 Function" sid="362835834773106" type="IFrame">
+                            <param id="0" name="C2">&quot;siguiente&quot;</param>
+                            <param id="1" name="Case">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Call function" sid="745782125874688" type="Funcion">
+                            <param id="0" name="Name">&quot;verPagina&quot;</param>
+                            <param id="1" name="Parameter {n}">CSV.NextRow{###}IFrame.C2</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="947798073789497">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="174109922141799" type="System" />
+                        <condition id="4" name="Compare C2 Function" sid="593022621106720" type="IFrame">
+                            <param id="0" name="C2">&quot;anterior&quot;</param>
+                            <param id="1" name="Case">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Call function" sid="934278762011543" type="Funcion">
+                            <param id="0" name="Name">&quot;verPagina&quot;</param>
+                            <param id="1" name="Parameter {n}">CSV.PreviousRow{###}IFrame.C2</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="188632946148790">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="826507532347132" type="System" />
+                        <condition id="4" name="Compare C2 Function" sid="380924702309779" type="IFrame">
+                            <param id="0" name="C2">&quot;si&quot;</param>
+                            <param id="1" name="Case">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Call function" sid="209919941600063" type="Funcion">
+                            <param id="0" name="Name">&quot;verPagina&quot;</param>
+                            <param id="1" name="Parameter {n}">si{###}&quot;pregunta&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="752779920915567">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="184706126361965" type="System" />
+                        <condition id="4" name="Compare C2 Function" sid="343236803823687" type="IFrame">
+                            <param id="0" name="C2">&quot;no&quot;</param>
+                            <param id="1" name="Case">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Call function" sid="688922762779063" type="Funcion">
+                            <param id="0" name="Name">&quot;verPagina&quot;</param>
+                            <param id="1" name="Parameter {n}">no{###}&quot;pregunta&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="653213914991071">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="126259955845512" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Call function" sid="756760949321204" type="Funcion">
+                            <param id="0" name="Name">&quot;verPagina&quot;</param>
+                            <param id="1" name="Parameter {n}">IFrame.C2{###}0</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <comment>Función que construye el codigo de la historieta que se desea ver, según la variable de consulta &quot;h&quot;</comment>
+        <event-block sid="315743607310955">
+            <conditions>
+                <condition id="0" name="On function" sid="276072448682575" type="Funcion">
+                    <param id="0" name="Name">&quot;getCodigo&quot;</param>
+                </condition>
+            </conditions>
+            <actions />
+            <sub-events>
+                <variable constant="0" name="aux" sid="125091655335841" static="0" type="text"></variable>
+                <event-block sid="265564062186612">
+                    <conditions />
+                    <actions>
+                        <action id="-9" name="Set value" sid="303961037499097" type="System">
+                            <param id="0" name="Variable">aux</param>
+                            <param id="1" name="Value">Navegador.QueryParam(&quot;h&quot;)</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Si hay valor en la variable &quot;h&quot;, entonces se construira el código</comment>
+                <event-block sid="222867283655857">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="621252731741907" type="System">
+                            <param id="0" name="Variable">aux</param>
+                            <param id="1" name="Comparison">1</param>
+                            <param id="2" name="Value">&quot;&quot;</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Set value" sid="363719771697322" type="System">
+                            <param id="0" name="Variable">aux</param>
+                            <param id="1" name="Value">&quot;h&quot; &amp; aux &amp; &quot;-1&quot;</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <comment>Si el codigo existe en el CSV, entonces </comment>
+                        <event-block sid="211208193947615">
+                            <conditions>
+                                <condition id="11" name="Has row" sid="468841643607547" type="CSV">
+                                    <param id="0" name="Row">aux</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Set value" sid="571133514319329" type="System">
+                                    <param id="0" name="Variable">inicio</param>
+                                    <param id="1" name="Value">aux</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <comment>Función que construye la página y lo muestra en el iframe</comment>
+        <comment>Parametro 1 = La fila del csv que se necesita</comment>
+        <comment>Parametro 2 = La dirección del flujo &quot;siguiente, anterior, pregunta&quot;</comment>
+        <event-block sid="853719568038558">
+            <conditions>
+                <condition id="0" name="On function" sid="924111588993455" type="Funcion">
+                    <param id="0" name="Name">&quot;verPagina&quot;</param>
+                </condition>
+            </conditions>
+            <actions />
+            <sub-events>
+                <variable constant="0" name="fila" sid="853920454398823" static="0" type="text"></variable>
+                <event-block sid="156941613494981">
+                    <conditions />
+                    <actions>
+                        <action id="6" name="Set HTML" sid="125479078284915" type="IFrame">
+                            <param id="0" name="Set HTML">HTML</param>
+                        </action>
+                        <action id="-9" name="Set value" sid="990441611518394" type="System">
+                            <param id="0" name="Variable">fila</param>
+                            <param id="1" name="Value">Funcion.Param(0)</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <comment>NUEVO</comment>
+                        <event-block sid="258991213348360">
+                            <conditions />
+                            <actions>
+                                <action id="25" name="Remove elements" sid="584055197561330" type="IFrame">
+                                    <param id="0" name="ID/Class">&quot;.ANTERIOR&quot;</param>
+                                </action>
+                                <action id="25" name="Remove elements" sid="731549704506050" type="IFrame">
+                                    <param id="0" name="ID/Class">&quot;.SIGUIENTE&quot;</param>
+                                </action>
+                                <action id="25" name="Remove elements" sid="595302261725976" type="IFrame">
+                                    <param id="0" name="ID/Class">&quot;.SI&quot;</param>
+                                </action>
+                                <action id="25" name="Remove elements" sid="255575030173908" type="IFrame">
+                                    <param id="0" name="ID/Class">&quot;.NO&quot;</param>
+                                </action>
+                                <action id="-16" name="Set opacity" sid="843285517820467" type="Sprite">
+                                    <param id="0" name="Opacity">100</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <comment>Si la fila es vacia, entonces no se mostrará nada</comment>
+                <event-block sid="448436524218201">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="257425769964241" type="System">
+                            <param id="0" name="Variable">fila</param>
+                            <param id="1" name="Comparison">1</param>
+                            <param id="2" name="Value">&quot;&quot;</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <variable comment="Nombres de las imagenes separadas por ;" constant="0" name="imagenes" sid="394693509167294" static="0" type="text"></variable>
+                        <variable comment="Clases de CSS de las imagenes separadas por ;" constant="0" name="clases" sid="692429354618122" static="0" type="text"></variable>
+                        <variable comment="1 =  Hay pregunta, 0 = No hay pregunta" constant="0" name="hayPregunta" sid="230941621765449" static="0" type="number">0</variable>
+                        <variable comment="1 = Está al principio, 0 = No está al principio" constant="0" name="esPrimero" sid="197505528100598" static="0" type="number">0</variable>
+                        <variable comment="1 = Es el final, 0 = No es el final" constant="0" name="esUltimo" sid="613426519183509" static="0" type="number">0</variable>
+                        <comment>Control del flujo de lectura</comment>
+                        <event-block sid="422058185191623">
+                            <conditions />
+                            <actions>
+                                <action id="-9" name="Set value" sid="991332058594059" type="System">
+                                    <param id="0" name="Variable">esUltimo</param>
+                                    <param id="1" name="Value">CSV.At(&quot;final&quot;, fila) &lt;&gt; &quot;&quot; ? 1 : 0</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <variable constant="0" name="direccion" sid="111313876006458" static="0" type="text"></variable>
+                                <event-block sid="266563726952801">
+                                    <conditions />
+                                    <actions>
+                                        <action id="-9" name="Set value" sid="646640526805191" type="System">
+                                            <param id="0" name="Variable">direccion</param>
+                                            <param id="1" name="Value">Funcion.Param(1)</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <comment>Si se desea ir atras y la página a que se desea es un final</comment>
+                                <event-block sid="907415601090587">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="497533552976637" type="System">
+                                            <param id="0" name="Variable">direccion</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">&quot;anterior&quot;</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions />
+                                    <sub-events>
+                                        <event-block sid="384730430804759">
+                                            <conditions>
+                                                <condition id="-14" name="Compare variable" sid="376316040152983" type="System">
+                                                    <param id="0" name="Variable">esUltimo</param>
+                                                    <param id="1" name="Comparison">0</param>
+                                                    <param id="2" name="Value">1</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-9" name="Set value" sid="133269608475595" type="System">
+                                                    <param id="0" name="Variable">fila</param>
+                                                    <param id="1" name="Value">pregunta</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <comment>Consigue los valores de las variables</comment>
+                        <event-block sid="643885681282653">
+                            <conditions />
+                            <actions />
+                            <sub-events>
+                                <event-block sid="802288747747304">
+                                    <conditions />
+                                    <actions>
+                                        <action id="-9" name="Set value" sid="485616998028506" type="System">
+                                            <param id="0" name="Variable">esPrimero</param>
+                                            <param id="1" name="Value">int(RegexMatchAt(fila,&quot;[0-9]+$&quot;,&quot;gi&quot;,0))</param>
+                                        </action>
+                                        <action id="-9" name="Set value" sid="232262738843166" type="System">
+                                            <param id="0" name="Variable">esUltimo</param>
+                                            <param id="1" name="Value">CSV.At(&quot;final&quot;, fila) &lt;&gt; &quot;&quot; ? 1 : 0</param>
+                                        </action>
+                                        <action id="-9" name="Set value" sid="275677084862312" type="System">
+                                            <param id="0" name="Variable">hayPregunta</param>
+                                            <param id="1" name="Value">CSV.At(&quot;pregunta&quot;, fila) &lt;&gt; &quot;&quot; ? 1 : 0</param>
+                                        </action>
+                                        <action id="-9" name="Set value" sid="451973946998001" type="System">
+                                            <param id="0" name="Variable">imagenes</param>
+                                            <param id="1" name="Value">CSV.At(&quot;recurso&quot;, fila)</param>
+                                        </action>
+                                        <action id="-9" name="Set value" sid="356712247852145" type="System">
+                                            <param id="0" name="Variable">clases</param>
+                                            <param id="1" name="Value">CSV.At(&quot;clase&quot;, fila)</param>
+                                        </action>
+                                        <action id="14" name="Log" sid="912328082686911" type="Navegador">
+                                            <param id="0" name="Type">0</param>
+                                            <param id="1" name="Message">&quot;clases &quot; &amp; CSV.At(&quot;clase&quot;, fila)</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <comment>Si hay imagenes .PNG o .GIF, los colocará en cada etiqueta img</comment>
+                        <event-block sid="659568832480525">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="445199125922459" type="System">
+                                    <param id="0" name="Variable">imagenes</param>
+                                    <param id="1" name="Comparison">1</param>
+                                    <param id="2" name="Value">&quot;&quot;</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <comment>Los recuros deben estar separados por ; (tokencount, contará los recursos)</comment>
+                                <variable constant="0" name="cantidad" sid="750279194364410" static="0" type="number">0</variable>
+                                <event-block sid="120080515297463">
+                                    <conditions />
+                                    <actions>
+                                        <action id="24" name="Get elements" sid="845080167701716" type="IFrame">
+                                            <param id="0" name="ID/Class">&quot;.CENTRO&quot;</param>
+                                            <param id="1" name="Set">&quot; &quot;</param>
+                                            <param id="2" name="Append">&quot;&quot;</param>
+                                        </action>
+                                        <action id="-9" name="Set value" sid="664332032481614" type="System">
+                                            <param id="0" name="Variable">cantidad</param>
+                                            <param id="1" name="Value">tokencount(imagenes,&quot;;&quot;)</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <comment>Se agregará cada recurso en un img (antes se añadira un div, al final se cerrará el div</comment>
+                                <event-block sid="400315891921305">
+                                    <conditions>
+                                        <condition id="-12" name="Repeat" sid="688140310384418" type="System">
+                                            <param id="0" name="Count">cantidad</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions />
+                                    <sub-events>
+                                        <variable constant="0" name="clase" sid="610936281027040" static="0" type="text"></variable>
+                                        <variable constant="0" name="imagen" sid="333043465503407" static="0" type="text"></variable>
+                                        <event-block sid="940051810245739">
+                                            <conditions />
+                                            <actions>
+                                                <action id="-9" name="Set value" sid="498164409146918" type="System">
+                                                    <param id="0" name="Variable">clase</param>
+                                                    <param id="1" name="Value">tokenat(clases,loopindex,&quot;;&quot;)</param>
+                                                </action>
+                                                <action id="-9" name="Set value" sid="972356128039146" type="System">
+                                                    <param id="0" name="Variable">imagen</param>
+                                                    <param id="1" name="Value">tokenat(imagenes,loopindex,&quot;;&quot;)</param>
+                                                </action>
+                                                <action id="14" name="Log" sid="767335002566498" type="Navegador">
+                                                    <param id="0" name="Type">0</param>
+                                                    <param id="1" name="Message">clase</param>
+                                                </action>
+                                                <action id="24" name="Get elements" sid="585317817092269" type="IFrame">
+                                                    <param id="0" name="ID/Class">&quot;.CENTRO&quot;</param>
+                                                    <param id="1" name="Set">&quot;&quot;</param>
+                                                    <param id="2" name="Append">&quot;&lt;img class=&apos;&quot;&amp;clase&amp;&quot;&apos; src=&apos;&quot;&amp;imagen&amp;&quot;&apos;/&gt;&quot;</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <comment>Control de los botones</comment>
+                        <event-block sid="309543911301796">
+                            <conditions />
+                            <actions />
+                            <sub-events>
+                                <comment>Si es la primera pagina, entonces se quitará el botón atras</comment>
+                                <event-block sid="983003026295820">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="688712076579555" type="System">
+                                            <param id="0" name="Variable">esPrimero</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">1</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="25" name="Remove elements" sid="825566287249866" type="IFrame">
+                                            <param id="0" name="ID/Class">&quot;.ANTERIOR&quot;</param>
+                                        </action>
+                                    </actions>
+                                    <sub-events>
+                                        <comment>NUEVO</comment>
+                                        <event-block sid="526442887380252">
+                                            <conditions>
+                                                <condition id="-7" name="Compare instance variable" sid="382944061246350" type="Sprite">
+                                                    <param id="0" name="Instance variable">id</param>
+                                                    <param id="1" name="Comparison">0</param>
+                                                    <param id="2" name="Value">1</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-16" name="Set opacity" sid="208032092263722" type="Sprite">
+                                                    <param id="0" name="Opacity">0</param>
+                                                </action>
+                                                <action id="0" name="Set cursor style" sid="297214942772731" type="Mouse">
+                                                    <param id="0" name="Cursor style">0</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                                <comment>Si hay pregunta, se quitará el boton siguiente</comment>
+                                <event-block sid="536231914572490">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="487123135125498" type="System">
+                                            <param id="0" name="Variable">hayPregunta</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">1</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="25" name="Remove elements" sid="181579903442640" type="IFrame">
+                                            <param id="0" name="ID/Class">&quot;.SIGUIENTE&quot;</param>
+                                        </action>
+                                    </actions>
+                                    <sub-events>
+                                        <comment>NUEVO</comment>
+                                        <event-block sid="482843810209021">
+                                            <conditions>
+                                                <condition id="-7" name="Compare instance variable" sid="974680281789393" type="Sprite">
+                                                    <param id="0" name="Instance variable">id</param>
+                                                    <param id="1" name="Comparison">0</param>
+                                                    <param id="2" name="Value">2</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-16" name="Set opacity" sid="317713119468355" type="Sprite">
+                                                    <param id="0" name="Opacity">0</param>
+                                                </action>
+                                                <action id="0" name="Set cursor style" sid="786946475761619" type="Mouse">
+                                                    <param id="0" name="Cursor style">0</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <variable constant="0" name="salto" sid="231685306543888" static="0" type="text"></variable>
+                                        <comment>se guardarán los punteros del si y no</comment>
+                                        <event-block sid="552869457293945">
+                                            <conditions />
+                                            <actions>
+                                                <action id="-9" name="Set value" sid="251616304342816" type="System">
+                                                    <param id="0" name="Variable">salto</param>
+                                                    <param id="1" name="Value">CSV.At(&quot;salto&quot;, fila)</param>
+                                                </action>
+                                                <action id="-9" name="Set value" sid="203599440322289" type="System">
+                                                    <param id="0" name="Variable">si</param>
+                                                    <param id="1" name="Value">tokenat(salto,0,&quot;;&quot;)</param>
+                                                </action>
+                                                <action id="-9" name="Set value" sid="847797234373225" type="System">
+                                                    <param id="0" name="Variable">no</param>
+                                                    <param id="1" name="Value">tokenat(salto,1,&quot;;&quot;)</param>
+                                                </action>
+                                                <action id="-9" name="Set value" sid="853802053766906" type="System">
+                                                    <param id="0" name="Variable">pregunta</param>
+                                                    <param id="1" name="Value">fila</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                                <comment>Pero si no hay pregunta, entonces se eliminaran las respuestas</comment>
+                                <event-block sid="122693121927518">
+                                    <conditions>
+                                        <condition id="-22" name="Else" sid="752284134965590" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="25" name="Remove elements" sid="824795160381815" type="IFrame">
+                                            <param id="0" name="ID/Class">&quot;.SI&quot;</param>
+                                        </action>
+                                        <action id="25" name="Remove elements" sid="155465964640199" type="IFrame">
+                                            <param id="0" name="ID/Class">&quot;.NO&quot;</param>
+                                        </action>
+                                    </actions>
+                                    <sub-events>
+                                        <comment>NUEVO</comment>
+                                        <event-block sid="402201652195691">
+                                            <conditions>
+                                                <condition id="-7" name="Compare instance variable" sid="446071997251868" type="Sprite">
+                                                    <param id="0" name="Instance variable">id</param>
+                                                    <param id="1" name="Comparison">0</param>
+                                                    <param id="2" name="Value">3</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-16" name="Set opacity" sid="721904742957237" type="Sprite">
+                                                    <param id="0" name="Opacity">0</param>
+                                                </action>
+                                                <action id="0" name="Set cursor style" sid="276421996107546" type="Mouse">
+                                                    <param id="0" name="Cursor style">0</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <comment>Si es la última página entonces se eliminará el boton siguiente</comment>
+                                        <event-block sid="475526267504242">
+                                            <conditions>
+                                                <condition id="-14" name="Compare variable" sid="860588053771762" type="System">
+                                                    <param id="0" name="Variable">esUltimo</param>
+                                                    <param id="1" name="Comparison">0</param>
+                                                    <param id="2" name="Value">1</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="25" name="Remove elements" sid="411773358738317" type="IFrame">
+                                                    <param id="0" name="ID/Class">&quot;.SIGUIENTE&quot;</param>
+                                                </action>
+                                            </actions>
+                                            <sub-events>
+                                                <comment>NUEVO</comment>
+                                                <event-block sid="762730907663131">
+                                                    <conditions>
+                                                        <condition id="-7" name="Compare instance variable" sid="515907573898131" type="Sprite">
+                                                            <param id="0" name="Instance variable">id</param>
+                                                            <param id="1" name="Comparison">0</param>
+                                                            <param id="2" name="Value">2</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="-16" name="Set opacity" sid="574123822981163" type="Sprite">
+                                                            <param id="0" name="Opacity">0</param>
+                                                        </action>
+                                                        <action id="0" name="Set cursor style" sid="177659059944182" type="Mouse">
+                                                            <param id="0" name="Cursor style">0</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                            </sub-events>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <comment>Botón para saltarse de página en página entre historietas, (ES DEBUG)</comment>
+        <event-block disabled="1" sid="362354218638108">
+            <conditions>
+                <condition id="0" name="On key pressed" sid="183407713865044" type="Teclado">
+                    <param id="0" name="Key">90 (Z)</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="1" name="Request project file" sid="463897817304668" type="AJAX">
+                    <param id="0" name="Tag">&quot;plantilla&quot;</param>
+                    <param id="1" name="File">plantilla.html</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Eventos para cambiar el puntero</comment>
+        <event-block sid="558088068717098">
+            <conditions>
+                <condition id="7" name="Cursor is over object" sid="220536855109433" type="Mouse">
+                    <param id="0" name="Object">Sprite</param>
+                </condition>
+                <condition id="-10" name="Compare opacity" sid="617938058933886" type="Sprite">
+                    <param id="0" name="Comparison">0</param>
+                    <param id="1" name="Opacity">100</param>
+                </condition>
+                <condition id="-4" name="Trigger once while true" sid="602672796368061" type="System" />
+            </conditions>
+            <actions>
+                <action id="0" name="Set cursor style" sid="376387255882954" type="Mouse">
+                    <param id="0" name="Cursor style">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="977610839507986">
+            <conditions>
+                <condition id="-22" name="Else" sid="214310732746172" type="System" />
+                <condition id="7" inverted="1" name="Cursor is over object" sid="840334054358333" type="Mouse">
+                    <param id="0" name="Object">Sprite</param>
+                </condition>
+                <condition id="-4" name="Trigger once while true" sid="450671039164050" type="System" />
+            </conditions>
+            <actions>
+                <action id="0" name="Set cursor style" sid="675746591382595" type="Mouse">
+                    <param id="0" name="Cursor style">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="999559941455208">
+            <conditions>
+                <condition id="6" name="On object clicked" sid="103267379213556" type="Mouse">
+                    <param id="0" name="Mouse button">0</param>
+                    <param id="1" name="Click type">0</param>
+                    <param id="2" name="Object clicked">Sprite</param>
+                </condition>
+                <condition id="-10" name="Compare opacity" sid="815953688924510" type="Sprite">
+                    <param id="0" name="Comparison">0</param>
+                    <param id="1" name="Opacity">100</param>
+                </condition>
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="383662118559197">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="724201588414599" type="Sprite">
+                            <param id="0" name="Instance variable">id</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Call function" sid="259782196403519" type="Funcion">
+                            <param id="0" name="Name">&quot;verPagina&quot;</param>
+                            <param id="1" name="Parameter {n}">CSV.PreviousRow{###}&quot;anterior&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="648301438883656">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="487234297919688" type="System" />
+                        <condition id="-7" name="Compare instance variable" sid="642539785472416" type="Sprite">
+                            <param id="0" name="Instance variable">id</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">2</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Call function" sid="876138385013696" type="Funcion">
+                            <param id="0" name="Name">&quot;verPagina&quot;</param>
+                            <param id="1" name="Parameter {n}">CSV.NextRow{###}&quot;siguiente&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="233284904573476">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="673154578976454" type="System" />
+                        <condition id="-7" name="Compare instance variable" sid="877140635838565" type="Sprite">
+                            <param id="0" name="Instance variable">id</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">3</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="806814450824095">
+                            <conditions>
+                                <condition id="3" name="Compare frame" sid="107070623816445" type="Sprite">
+                                    <param id="0" name="Comparison">0</param>
+                                    <param id="1" name="Number">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Call function" sid="790456535304297" type="Funcion">
+                                    <param id="0" name="Name">&quot;verPagina&quot;</param>
+                                    <param id="1" name="Parameter {n}">no{###}&quot;pregunta&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="483937527491211">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="361750087364776" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Call function" sid="159133518968416" type="Funcion">
+                                    <param id="0" name="Name">&quot;verPagina&quot;</param>
+                                    <param id="1" name="Parameter {n}">si{###}&quot;pregunta&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-block>
+    </events>
+</c2eventsheet>
