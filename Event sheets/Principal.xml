@@ -3,6 +3,8 @@
     <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
     <name>Principal</name>
     <events>
+        <variable constant="1" name="TITULOS" sid="589923029004301" static="0" type="text">Banneo: Mala convivencia;Banneo: Infrigir politicas web;Troll: Conversación innecesaria;Troll: Comentario negativo;Spam: Correos basura;Spam: Mensajes engañosos</variable>
+        <variable constant="0" name="contador" sid="150733853895671" static="0" type="number">0</variable>
         <variable comment="Puntero inicial" constant="0" name="inicio" sid="346952525847161" static="0" type="text">h1-1</variable>
         <variable comment="Puntero del camino si" constant="0" name="si" sid="205920648321924" static="0" type="text"></variable>
         <variable comment="Puntero del camino no" constant="0" name="no" sid="400352411046252" static="0" type="text"></variable>
@@ -176,13 +178,31 @@
                             <param id="2" name="Value">&quot;&quot;</param>
                         </condition>
                     </conditions>
-                    <actions>
-                        <action id="-9" name="Set value" sid="363719771697322" type="System">
-                            <param id="0" name="Variable">aux</param>
-                            <param id="1" name="Value">&quot;h&quot; &amp; aux &amp; &quot;-1&quot;</param>
-                        </action>
-                    </actions>
+                    <actions />
                     <sub-events>
+                        <event-block sid="498775261590348">
+                            <conditions>
+                                <condition id="-7" name="Compare instance variable" sid="857897716879243" type="zetiqueta">
+                                    <param id="0" name="Instance variable">ID</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Set text" sid="877573004953698" type="zetiqueta">
+                                    <param id="0" name="Text">tokenat(TITULOS,int(aux)-1,&quot;;&quot;)</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="882059076355376">
+                            <conditions />
+                            <actions>
+                                <action id="-9" name="Set value" sid="363719771697322" type="System">
+                                    <param id="0" name="Variable">aux</param>
+                                    <param id="1" name="Value">&quot;h&quot; &amp; aux &amp; &quot;-1&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
                         <comment>Si el codigo existe en el CSV, entonces </comment>
                         <event-block sid="211208193947615">
                             <conditions>
@@ -194,6 +214,28 @@
                                 <action id="-9" name="Set value" sid="571133514319329" type="System">
                                     <param id="0" name="Variable">inicio</param>
                                     <param id="1" name="Value">aux</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="285802359198589">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="150375150628128" type="System" />
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="548794625402612">
+                            <conditions>
+                                <condition id="-7" name="Compare instance variable" sid="148855201744717" type="zetiqueta">
+                                    <param id="0" name="Instance variable">ID</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Set text" sid="476850645017373" type="zetiqueta">
+                                    <param id="0" name="Text">tokenat(TITULOS,0,&quot;;&quot;)</param>
                                 </action>
                             </actions>
                         </event-block>
@@ -293,7 +335,12 @@
                                             <param id="2" name="Value">&quot;anterior&quot;</param>
                                         </condition>
                                     </conditions>
-                                    <actions />
+                                    <actions>
+                                        <action id="-10" name="Add to" sid="624664835261220" type="System">
+                                            <param id="0" name="Variable">contador</param>
+                                            <param id="1" name="Value">-1</param>
+                                        </action>
+                                    </actions>
                                     <sub-events>
                                         <event-block sid="384730430804759">
                                             <conditions>
@@ -311,6 +358,17 @@
                                             </actions>
                                         </event-block>
                                     </sub-events>
+                                </event-block>
+                                <event-block sid="714043194080010">
+                                    <conditions>
+                                        <condition id="-22" name="Else" sid="154804750531527" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="-10" name="Add to" sid="935884292818899" type="System">
+                                            <param id="0" name="Variable">contador</param>
+                                            <param id="1" name="Value">1</param>
+                                        </action>
+                                    </actions>
                                 </event-block>
                             </sub-events>
                         </event-block>
@@ -584,6 +642,20 @@
                             </sub-events>
                         </event-block>
                     </sub-events>
+                </event-block>
+                <event-block sid="674452300755693">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="744965590808120" type="zetiqueta">
+                            <param id="0" name="Instance variable">ID</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">2</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Set text" sid="722285896236106" type="zetiqueta">
+                            <param id="0" name="Text">&quot;Pág. &quot; &amp; contador</param>
+                        </action>
+                    </actions>
                 </event-block>
             </sub-events>
         </event-block>

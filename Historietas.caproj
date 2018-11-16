@@ -19,6 +19,7 @@
         <plugin author="Rex.Rainbow" id="Rex_CSV" version="1">CSV</plugin>
         <plugin author="Scirra" id="Sprite" version="1">Sprite</plugin>
         <plugin author="Scirra" id="TiledBg" version="1">Tiled Background</plugin>
+        <plugin author="Rex.Rainbow" id="rex_TagText" version="0.100000001">Tag Text</plugin>
     </used-plugins>
     <used-behaviors />
     <used-effects />
@@ -36,9 +37,9 @@
         <prop name="Clear background">Yes</prop>
         <prop name="Downscaling">Medium quality</prop>
         <prop name="Enable WebGL">On</prop>
-        <prop name="Fullscreen in browser">Letterbox scale</prop>
+        <prop name="Fullscreen in browser">Scale outer</prop>
         <prop name="Fullscreen scaling">High quality</prop>
-        <prop name="Loader style">Construct 2 splash</prop>
+        <prop name="Loader style">Progress bar only</prop>
         <prop name="Orientations">Any</prop>
         <prop name="Pause on unfocus">No</prop>
         <prop name="Physics engine">Box2D asm.js</prop>
@@ -72,7 +73,7 @@
                 <instance-variable name="id" sid="615468675819886" type="number" />
             </instance-variables>
             <animation-folder>
-                <animation framecount="4" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="254446185557716" speed="0">
+                <animation framecount="7" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="254446185557716" speed="0">
                     <frame duration="1" hotspotX="0.5" hotspotY="0.505155" original-source="H:\OneDrive\Tesis\APLICACIÓN\PROCESO\proyecto GUI\- TEMA CONSTRUCCIÓN\boton no.png">
                         <collision-poly>
                             <point x="0.103774" y="0.226804" />
@@ -95,6 +96,9 @@
                         </collision-poly>
                     </frame>
                     <frame duration="1" hotspotX="0.5" hotspotY="0.505155" original-source="H:\OneDrive\Tesis\APLICACIÓN\PROCESO\proyecto GUI\- TEMA CONSTRUCCIÓN\boton no.png" />
+                    <frame duration="1" hotspotX="0" hotspotY="0" />
+                    <frame duration="1" hotspotX="0" hotspotY="0" />
+                    <frame duration="1" hotspotX="0.500697" hotspotY="0.5" original-source="C:\Users\Android\Downloads\titulo 1.png" />
                 </animation>
             </animation-folder>
         </object-type>
@@ -104,6 +108,12 @@
         <object-type name="Fondo" sid="401200032869459">
             <plugin id="TiledBg" />
             <texture original-source="H:\OneDrive\Tesis\APLICACIÓN\PROCESO\proyecto GUI\- TEMA CONSTRUCCIÓN\muro de ladrillos.png" />
+        </object-type>
+        <object-type global="1" name="zetiqueta" sid="329886766781059">
+            <plugin id="rex_TagText" />
+            <instance-variables>
+                <instance-variable name="ID" sid="334333316217498" type="number" />
+            </instance-variables>
         </object-type>
     </object-folder>
     <families />
